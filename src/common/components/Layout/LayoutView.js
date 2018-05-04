@@ -1,27 +1,19 @@
 import React from 'react';
-import { GET_DATA_ACTION } from 'common';
 import { LayoutHeader } from './components';
 
 import './LayoutView.less';
 
-const LayoutView = ({ store, dispatch }) => {
-  const onClick = () => {
-    const action = {
-      name: GET_DATA_ACTION,
-    };
-
-    dispatch(action);
-  };
-
+const LayoutView = ({ children }) => {
   return (
     <div className="layout">
       <LayoutHeader></LayoutHeader>
-      <div className="container">
-        { store.data }
-        <button onClick={ onClick } >Get data</button>
+      <div className="layout__content">
+        <div className="container-fluid">
+          { children }
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export { LayoutView };

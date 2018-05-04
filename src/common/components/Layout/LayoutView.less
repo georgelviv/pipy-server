@@ -2,4 +2,9 @@
 
 .layout {
   padding-top: @navbar-height;
+  &__content {
+    @media @for-desktop {
+      padding-left: @sidenav-height;
+    }
+  }
 }

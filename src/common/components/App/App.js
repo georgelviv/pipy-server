@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
-import { Layout, GlobalContext, defaultContext, reducer } from 'common';
+import { 
+  BrowserRouter as Router, 
+  Switch,
+  Route, 
+  Redirect,
+} from 'react-router-dom';
+import { 
+  Layout, 
+  DashboardPage, 
+  NotFoundPage,
+  BasicProvider
+} from 'common';
+
 import './App.css';
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      store: defaultContext.store,
-      dispatch: (event) => {
-        this.setState((prevState) => {
-          prevState.store = reducer(prevState, event);
-          return prevState;
-        });
-      }
-    }
-  }
-
   render() {
     return (
-      <GlobalContext.Provider value={ this.state }>
-        <Layout>
-        </Layout>
-      </GlobalContext.Provider>
+      <Router>
+        <div>
+          <BasicProvider>
+            <Layout>
+              <Switch>
+                <Route exact path="/dashboard" component={ DashboardPage }/>
+                <Redirect exact from="/" to="/dashboard" />
+                <Route component={ NotFoundPage }/>
+              </Switch>
+            </Layout>
+          </BasicProvider>
+        </div>
+      </Router>
     );
   }
 }

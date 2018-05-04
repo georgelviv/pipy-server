@@ -4,17 +4,22 @@
   &.layout-sidenav {
     flex-direction: column;
   }
-  height: calc(100vh - @navbar-height);
-  position: absolute;
-  top: 0;
-  left: 0;
-  margin-top: @navbar-height;
+  @media @for-desktop {
+    height: calc(100vh - @navbar-height);
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: @navbar-height;
+    width: @sidenav-height;
+  }
   background: @primary-color;
-  width: 250px;
   .nav-link.nav-link { // Rewrite Boostrap
     padding: 16px;
     width: 100%;
     display: block;
+    @media @for-mobile {
+      padding-left: 0;
+    }
   }
   &__link {
     &.layout-sidenav__link--dashboard {
@@ -25,5 +30,13 @@
   }
   &__link-text {
     margin-left: 10px;
+  }
+  &__nav-item {
+    &--active .layout-sidenav__link.layout-sidenav__link.layout-sidenav__link {
+      color: #fff;
+      @media @for-desktop {
+        background-color: lighten(@primary-color, 10%);
+      }
+    }
   }
 }
