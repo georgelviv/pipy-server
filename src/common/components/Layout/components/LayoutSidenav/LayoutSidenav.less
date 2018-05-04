@@ -1,0 +1,29 @@
+@import './../../../../globals/variables.less';
+
+.layout-sidenav {
+  &.layout-sidenav {
+    flex-direction: column;
+  }
+  height: calc(100vh - @navbar-height);
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-top: @navbar-height;
+  background: @primary-color;
+  width: 250px;
+  .nav-link.nav-link { // Rewrite Boostrap
+    padding: 16px;
+    width: 100%;
+    display: block;
+  }
+  &__link {
+    &.layout-sidenav__link--dashboard {
+      &::before {
+        content: "\f0e4";
+      }
+    }
+  }
+  &__link-text {
+    margin-left: 10px;
+  }
+}

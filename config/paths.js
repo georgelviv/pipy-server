@@ -52,5 +52,6 @@ module.exports = {
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
-  common: path.resolve(__dirname, '..', 'src', 'common')
+  common: path.resolve(__dirname, '..', 'src', 'common'),
+  variablesLess: path.resolve(__dirname, '..', 'src', 'common/variables.less'),
 };

@@ -1,5 +1,8 @@
 import React from 'react';
 import { GET_DATA_ACTION } from 'common';
+import { LayoutHeader } from './components';
+
+import './LayoutView.less';
 
 const LayoutView = ({ store, dispatch }) => {
   const onClick = () => {
@@ -11,9 +14,12 @@ const LayoutView = ({ store, dispatch }) => {
   };
 
   return (
-    <div>
-      { store.data }
-      <button onClick={ onClick } >Get data</button>
+    <div className="layout">
+      <LayoutHeader></LayoutHeader>
+      <div className="container">
+        { store.data }
+        <button onClick={ onClick } >Get data</button>
+      </div>
     </div>
   );
 }
