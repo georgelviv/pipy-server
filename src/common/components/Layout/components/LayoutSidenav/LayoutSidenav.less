@@ -1,30 +1,28 @@
 @import './../../../../globals/variables.less';
 
+@toggle-btn-height: 40px;
+
 .layout-sidenav {
-  &.layout-sidenav {
-    flex-direction: column;
-  }
+  background: @primary-color;
   @media @for-desktop {
     height: calc(100vh - @navbar-height);
     position: absolute;
     top: 0;
     left: 0;
     margin-top: @navbar-height;
-    width: @sidenav-height;
+    width: @sidenav-width-full;
   }
-  background: @primary-color;
-  .nav-link.nav-link { // Rewrite Boostrap
-    padding: 16px;
-    width: 100%;
-    display: block;
-    @media @for-mobile {
-      padding-left: 0;
+  &__nav {
+    position: relative;
+    &.layout-sidenav__nav {
+      flex-direction: column;
     }
-  }
-  &__link {
-    &.layout-sidenav__link--dashboard {
-      &::before {
-        content: "\f0e4";
+    .nav-link.nav-link { // Rewrite Boostrap
+      padding: 16px;
+      width: 100%;
+      display: block;
+      @media @for-mobile {
+        padding-left: 0;
       }
     }
   }
@@ -36,6 +34,34 @@
       color: #fff;
       @media @for-desktop {
         background-color: lighten(@primary-color, 10%);
+      }
+    }
+  }
+  &__toogle-btn {
+    position: absolute;
+    bottom: 0;
+    background-color: @secondary-color;
+    height: @toggle-btn-height;
+    width: 100%;
+    text-align: center;
+    line-height: @toggle-btn-height;
+    color: @font-color;
+    cursor: pointer;
+    &:after {
+      content: "\f105";
+      font-family: Font Awesome\ 5 Free;
+      font-weight: 900;
+      font-size: 22px;
+    }
+    &:hover {
+      color: #fff;
+    }
+  }
+
+  &--opened {
+    .layout-sidenav__toogle-btn {
+      &:after {
+        content: "\f104";
       }
     }
   }
