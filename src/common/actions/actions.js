@@ -1,8 +1,8 @@
-export const GET_DATA_ACTION = 'get data';
+export const TOGGLE_NAVBAR = 'toggle navbar';
 
 const reducer = (prevState, action) => {
   switch (action.name) {
-    case GET_DATA_ACTION:
+    case TOGGLE_NAVBAR:
       return Object.assign({}, prevState, {
         data: 'super puper data'
       });
