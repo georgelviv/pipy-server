@@ -1,27 +1,48 @@
 import React, { Component } from 'react';
-import { GlobalContext } from 'common';
+import { 
+  layoutStoreSelector, 
+  LAYOUT_NAVBAR_TOGGLE_ACTION, 
+  BasicConsumer 
+} from 'common';
 
 import { LayoutSidenavView } from './LayoutSidenavView';
+
+const mapStoreToProps = (store) => {
+  return  {
+    isNavbarOpen: layoutStoreSelector(store).isNavbarOpen
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return  {
+    toggleNavbar: (isOpen) => {
+      dispatch({
+        name: LAYOUT_NAVBAR_TOGGLE_ACTION,
+        data: isOpen
+      })
+    }
+  }
+};
 
 class LayoutSidenav extends Component {
   render() {
     const { pathname } = this.props;
     return (
-        <GlobalContext.Consumer>
+        <BasicConsumer>
           {
             (context) => {
+              const props = { pathname, ...mapStoreToProps(context.store), ...mapDispatchToProps(context.dispatch) } ;
+
               return (
-                <LayoutSidenavView 
-                  store={ context.store } 
-                  dispatch={ context.dispatch }  
-                  pathname={ pathname }>
-                </LayoutSidenavView>
+                <LayoutSidenavView  { ...props } ></LayoutSidenavView>
               );
             }
           }
-        </GlobalContext.Consumer>
+        </BasicConsumer>
       );
   }
 };
+
+
 
 export { LayoutSidenav };

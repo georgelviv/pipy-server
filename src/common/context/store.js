@@ -1,5 +1,7 @@
+import { layoutStore } from './layoutContext';
+
 const store = {
-  data: 'some data..'
+  layout: layoutStore
 };
 
 export { store };

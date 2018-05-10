@@ -1,20 +1,28 @@
 import React, { Component } from 'react';
 
-import { GlobalContext } from 'common';
+import { BasicConsumer, layoutStoreSelector } from 'common';
 import { LayoutView } from './LayoutView';
 
-
+const mapStoreToProps = (store) => {
+  return {
+    isNavbarOpen: layoutStoreSelector(store).isNavbarOpen
+  }
+}
 
 class Layout extends Component {
   render() {
     return (
-      <GlobalContext.Consumer>
-        { (context) => 
-          <LayoutView store={ context.store } dispatch={ context.dispatch } >
-            { this.props.children }
-          </LayoutView>
+      <BasicConsumer>
+        { (context) => {
+          const props = { ...mapStoreToProps(context.store) };
+          return (
+            <LayoutView {...props} >
+              { this.props.children }
+            </LayoutView>
+          );
+          }
         }
-      </GlobalContext.Consumer>
+      </BasicConsumer>
     )
   }
 }

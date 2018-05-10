@@ -1,0 +1,3 @@
+const LAYOUT_NAVBAR_TOGGLE_ACTION = 'toggle navbar';
+
+export { LAYOUT_NAVBAR_TOGGLE_ACTION };

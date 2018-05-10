@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './LayoutSidenavView.less';
@@ -24,51 +24,34 @@ const MENU_ITEMS = [
    }
 ];
 
-class LayoutSidenavView extends Component {
-  constructor(props) {
-    super(props);
+const LayoutSidenavView = ({ pathname, toggleNavbar, isNavbarOpen }) => {
+  const onToggleClick = () => {
+    toggleNavbar(!isNavbarOpen);
+  };
 
-    this.state = {
-      isOpen: true
-    };
+  const layoutsidenavClassName = "layout-sidenav" + (isNavbarOpen ? " layout-sidenav--opened" : "");
 
-    this.toggleSidenav = this.toggleSidenav.bind(this);
-  }
-
-  toggleSidenav() {
-    this.setState(prevState => {
-      return {
-        isOpen: !prevState.isOpen
-      }
-    });
-  }
-
-  render() {
-    const { pathname } = this.props;
-    const layoutsidenavClassName = "layout-sidenav" + (this.state.isOpen ? " layout-sidenav--opened" : "");
-
-    return (
-      <div className={ layoutsidenavClassName }>
-        <ul className="layout-sidenav__nav navbar-nav navbar-sidenav">
-          {
-            MENU_ITEMS.map(item => {
-              const isActive = item.link === pathname;
-              const classNameNavItem = "layout-sidenav__nav-item nav-item " + (isActive ? " layout-sidenav__nav-item--active" : "");
-              return (
-                <li className={ classNameNavItem } key={ item.id }>
-                  <Link className="nav-link layout-sidenav__link" to={ item.link }>
-                    <i className={ "fas fa-sm fa-fw " + item.iconClassName }></i>
-                    <span className="layout-sidenav__link-text">{ item.title }</span>
-                  </Link>
-                </li>
-              );
-            })
-          }
-        </ul>
-        <div className="layout-sidenav__toogle-btn" onClick={ this.toggleSidenav }></div>
-      </div>
-    );
-  }  
+  return (
+    <div className={ layoutsidenavClassName }>
+      <ul className="layout-sidenav__nav navbar-nav navbar-sidenav">
+        {
+          MENU_ITEMS.map(item => {
+            const isActive = item.link === pathname;
+            const classNameNavItem = "layout-sidenav__nav-item nav-item " + (isActive ? " layout-sidenav__nav-item--active" : "");
+            return (
+              <li className={ classNameNavItem } key={ item.id }>
+                <Link className="nav-link layout-sidenav__link" to={ item.link }>
+                  <i className={ "fas fa-sm fa-fw " + item.iconClassName }></i>
+                  <span className="layout-sidenav__link-text">{ item.title }</span>
+                </Link>
+              </li>
+            );
+          })
+        }
+      </ul>
+      <div className="layout-sidenav__toogle-btn" onClick={ onToggleClick }></div>
+    </div>
+  );
 };
 
 export { LayoutSidenavView };

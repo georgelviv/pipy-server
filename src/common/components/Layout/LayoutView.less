@@ -4,7 +4,16 @@
   padding-top: @navbar-height;
   &__content {
     @media @for-desktop {
-      padding-left: @sidenav-width-full;
+      padding-left: @sidenav-width-closed;
+    }
+  }
+  &--navbar-open {
+    .layout {
+      &__content {
+        @media @for-desktop {
+          padding-left:  @sidenav-width-full;
+        }
+      }
     }
   }
 }

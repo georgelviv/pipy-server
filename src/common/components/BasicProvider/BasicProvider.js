@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import {
-  defaultContext, 
-  reducer, 
+  store, 
+  reducer
 } from 'common';
 
 const BasicContext = React.createContext();
@@ -12,7 +12,7 @@ class BasicProvider extends Component {
     super(props);
 
     this.state = {
-      store: defaultContext.store,
+      store: store,
       dispatch: (event) => {
         this.setState((prevState) => {
           prevState.store = reducer(prevState, event);
@@ -24,7 +24,7 @@ class BasicProvider extends Component {
 
   render() {
     return (
-      <BasicContext.Provider value={{ value: 12 }}>
+      <BasicContext.Provider value={ this.state }>
         {this.props.children}
       </BasicContext.Provider>
     );

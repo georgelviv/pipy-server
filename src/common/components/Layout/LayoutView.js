@@ -3,9 +3,10 @@ import { LayoutHeader } from './components';
 
 import './LayoutView.less';
 
-const LayoutView = ({ children }) => {
+const LayoutView = ({ children, isNavbarOpen }) => {
+  const layoutClassname = "layout" + (isNavbarOpen ? " layout--navbar-open" : "");
   return (
-    <div className="layout">
+    <div className={ layoutClassname }>
       <LayoutHeader></LayoutHeader>
       <div className="layout__content">
         <div className="container-fluid">

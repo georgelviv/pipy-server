@@ -10,7 +10,7 @@
     top: 0;
     left: 0;
     margin-top: @navbar-height;
-    width: @sidenav-width-full;
+    width: @sidenav-width-closed;
   }
   &__nav {
     position: relative;
@@ -28,6 +28,9 @@
   }
   &__link-text {
     margin-left: 10px;
+    @media @for-desktop {
+      display: none;
+    }
   }
   &__nav-item {
     &--active .layout-sidenav__link.layout-sidenav__link.layout-sidenav__link {
@@ -38,6 +41,7 @@
     }
   }
   &__toogle-btn {
+    display: none;
     position: absolute;
     bottom: 0;
     background-color: @secondary-color;
@@ -56,12 +60,26 @@
     &:hover {
       color: #fff;
     }
+
+    @media @for-desktop {
+      display: block;
+    }
   }
 
   &--opened {
-    .layout-sidenav__toogle-btn {
-      &:after {
-        content: "\f104";
+    @media @for-desktop {
+      width: @sidenav-width-full;
+    }
+    .layout-sidenav {
+      &__link-text {
+        @media @for-desktop {
+          display: inline-block;
+        }
+      }
+      &__toogle-btn {
+        &:after {
+          content: "\f104";
+        }
       }
     }
   }
