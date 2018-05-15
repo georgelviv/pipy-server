@@ -52,6 +52,11 @@ class Server {
         res.redirect('/')
       }
     );
+
+    app.get('*', (req, res) => {
+      res.redirect('/');
+    });
+
   }
 
   setupApp() {

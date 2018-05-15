@@ -987,8 +987,8 @@
   "scripts": {
     "start": "webpack --config config/webpack.dev.js",
     "build": "webpack --config config/webpack.prod.js",
-    "sever": "node index.js",
-    "heroku": "npm run build && npm run sever"
+    "server": "node index.js",
+    "heroku": "npm run build && npm run server"
   },
   "repository": {
     "type": "git",
