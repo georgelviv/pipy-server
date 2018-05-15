@@ -1,4 +1,5 @@
 import { layoutReducer } from './layoutContext';
+import { iotDataReducer } from './iotDataContext';
 
 const combineReducers = (reducersObj) => {
   const reducerKeys = Object.keys(reducersObj);
@@ -14,7 +15,8 @@ const combineReducers = (reducersObj) => {
 };
 
 const reducer = combineReducers({
-  layout: layoutReducer
+  layout: layoutReducer,
+  iotData: iotDataReducer
 });
 
 export { reducer };
