@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { 
   layoutStoreSelector, 
-  LAYOUT_NAVBAR_TOGGLE_ACTION, 
+  layoutToogleNavbarAction, 
   BasicConsumer 
 } from 'common';
 
@@ -16,10 +16,7 @@ const mapStoreToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return  {
     toggleNavbar: (isOpen) => {
-      dispatch({
-        name: LAYOUT_NAVBAR_TOGGLE_ACTION,
-        data: isOpen
-      })
+      layoutToogleNavbarAction(dispatch, isOpen)
     }
   }
 };

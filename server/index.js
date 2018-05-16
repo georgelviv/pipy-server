@@ -48,6 +48,10 @@ class Server {
       res.sendFile(this.settings.indexFile);
     });
 
+    app.get('/sensors', (req, res) => {
+      res.send({someData: 'aa'});
+    });
+
     app.get('/login', this.auth.getPassportMiddleware(), (req, res) => {
         res.redirect('/')
       }

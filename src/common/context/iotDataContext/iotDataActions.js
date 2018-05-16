@@ -1,3 +1,21 @@
-const GET_DHT_SENSOR_DATA = 'get dht sensor data';
+const GET_DHT_SENSOR_DATA_REQUEST_ACTION = 'get dht sensor data';
+const GET_DHT_SENSOR_DATA_RESPONSE_ACTION = 'received dht sensor data';
 
-export { GET_DHT_SENSOR_DATA };
+const getDHTSensorDataAction = (dispatch) => {
+  dispatch({
+    name: GET_DHT_SENSOR_DATA_REQUEST_ACTION
+  })
+
+  setTimeout(() => {
+    dispatch({
+      name: GET_DHT_SENSOR_DATA_RESPONSE_ACTION,
+      data: '20% temperature'
+    })
+  }, 2000);
+};
+
+export { 
+  GET_DHT_SENSOR_DATA_REQUEST_ACTION,
+  GET_DHT_SENSOR_DATA_RESPONSE_ACTION,
+  getDHTSensorDataAction 
+};

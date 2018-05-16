@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BasicConsumer, iotDataStoreSelector, GET_DHT_SENSOR_DATA } from 'common';
+import { BasicConsumer, iotDataStoreSelector, getDHTSensorDataAction } from 'common';
 import { DashboardPageView } from './DashboardPageView';
 
 const mapStoreToProps = (store) => {
@@ -11,9 +11,7 @@ const mapStoreToProps = (store) => {
 const mapDispatchToProps = (dispatch) => {
   return  {
     getDHTSenorData: () => {
-      dispatch({
-        name: GET_DHT_SENSOR_DATA
-      });
+      getDHTSensorDataAction(dispatch);
     }
   }
 };
