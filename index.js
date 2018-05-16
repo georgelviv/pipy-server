@@ -1,8 +1,8 @@
 const Server = require('./server');
 const globals = require('./config/globals');
+const fs = require('fs');
 
-
-console.log('ahah', __dirname);
+console.log(fs.readdirSync('./build'))
 
 const server = new Server({
   port: globals.SERVER_PORT,
