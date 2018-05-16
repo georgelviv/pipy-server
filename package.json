@@ -995,7 +995,7 @@
     "url": "git+https://github.com/georgelviv/pipy-server.git"
   },
   "author": "Yura Shkoropad",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/georgelviv/pipy-server/issues"
   },
