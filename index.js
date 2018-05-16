@@ -2,6 +2,8 @@ const Server = require('./server');
 const globals = require('./config/globals');
 
 
+console.log('ahah', __dirname);
+
 const server = new Server({
   port: globals.SERVER_PORT,
   auth:   {

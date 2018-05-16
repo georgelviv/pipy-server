@@ -10,7 +10,7 @@ console.log(path.join(paths.WEB_SRC_DIR, 'index.js'))
 module.exports = {
   entry: path.join(paths.WEB_SRC_DIR, 'index.js'),
   output: {
-    filename: 'app.js',
+    filename: '[name].[chunkhash].js',
     path: paths.DESTANATION_DIR
   },
   module: {
@@ -58,7 +58,7 @@ module.exports = {
       template: path.join(paths.PUBLIC_SRC_DIR, 'index.html'),
       inject: true
     }),
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin('style.[hash].css'),
     new CopyWebpackPlugin([
       { from: paths.WEB_ASSETS_DIR, to: paths.PUBLIC_ASSETS_DIR }
     ])
