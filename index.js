@@ -2,9 +2,6 @@ const Server = require('./server');
 const globals = require('./config/globals');
 const fs = require('fs');
 
-console.log(fs.readdirSync('./'))
-console.log(fs.readFileSync('./package.json').toString().slice(-500, -200))
-
 const server = new Server({
   port: globals.SERVER_PORT,
   auth:   {
