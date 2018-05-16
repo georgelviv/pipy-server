@@ -12,7 +12,7 @@ class WssClient {
   constructor(configs) {
     this.configs = Object.assign({}, WssClient.defaultSettings, configs);
 
-    this.connect();
+    // this.connect();
   }
 
   log(msg) {
