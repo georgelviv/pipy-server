@@ -1,80 +1,56 @@
-const express = require('express');
-const path = require('path');
-const Auth = require('./auth');
+const HttpServer = require('./http');
+const WsClient = require('./ws');
 
 class Server {
 
   static get defaultSettings() {
     return { 
-      port: 3000,
-      staticDirname: path.resolve(__dirname, '..', 'build'),
-      indexFile: path.resolve(__dirname, '..', 'build', 'index.html')
+      http: {},
+      ws: {}
     }
   }
 
   constructor(settings) {
     this.setSettings(settings);
-    this.setupApp();
-    this.setupRoutes(this.app);
-    this.listen();
+    this.initHttpServer();
+    this.initWsClient();
   }
 
-  listen() {
-    this.app.listen(this.settings.port, () => {
-      this.log(`listen at: ${ this.settings.port }`)
-    });
+  initWsClient() {
+    const settings = Object.assign({}, this.settings.ws, { onConnection: this.onWsConnection.bind(this) });
+
+    this.wsClient = new WsClient(settings);
   }
 
-  setupAuth() {
-    this.auth = new Auth(this.settings.auth);
-
-    const passport = this.auth.getPassport()
-
-    this.app.use(passport.initialize());
-    this.app.use(passport.session());
+  initHttpServer() {
+    this.httpServer = new HttpServer(this.settings.http);
   }
 
   setSettings(settings) {
     this.settings = Object.assign({}, Server.defaultSettings, settings);
   }
 
-  setupMiddlewares(app) {
-    app.use(express.static(this.settings.staticDirname));
-    this.setupAuth();
-  }
-
-  setupRoutes(app) {
-    app.get('/', (req, res) => {
-      res.sendFile(this.settings.indexFile);
+  onWsConnection(connection) {
+    connection.onMsg(msg => {
+      console.log(msg);
     });
 
-    app.get('/sensors', (req, res) => {
-      res.send({someData: 'aa'});
+    connection.sendMsg({
+      type: 'meta',
+      name: 'server'
     });
 
-    app.get('/login', this.auth.getPassportMiddleware(), (req, res) => {
-        res.redirect('/')
-      }
-    );
-
-    app.get('*', (req, res) => {
-      res.redirect('/');
-    });
-
+    setTimeout(() => {
+      connection.sendMsg({
+        to: 'batman',
+        from: 'server',
+        type: 'request',
+        data: 'get_dht_sensor_data'
+      });
+    }, 2000);
   }
 
-  setupApp() {
-    const { port } = this.settings;
-    this.app = express();
-
-    this.setupMiddlewares(this.app);
-
-    return this.app;
-  }
-
-  log(msg) {
-    console.log(`server: ${ msg }`);
-  }
+ 
 }
 
 module.exports = Server;
