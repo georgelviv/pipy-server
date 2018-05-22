@@ -9,7 +9,6 @@ import './DashboardPageView.less';
 
 
 const DashboardPageView = ({ sensorStatus, sensorsDataList, getDHTSenorData }) => {
-  console.log(sensorsDataList);
   const getDataBtn = sensorStatus === IOT_DATA_IDLE_STATUS 
     ? (<button className="btn btn-primary" onClick={ getDHTSenorData } >get data</button>) 
     : (<button className="btn btn-primary" onClick={ getDHTSenorData } disabled >get data</button>);
@@ -25,21 +24,35 @@ const DashboardPageView = ({ sensorStatus, sensorsDataList, getDHTSenorData }) =
           <th>#</th>
           <th>Temperature</th>
           <th>Humidity</th>
-          <th>Latency from broker (ms)</th>
-          <th>Latency from receiver (ms)</th>
-          <th>Latency from sensor (ms)</th>
+          <th>Sensor read latecny (ms)</th>
+          <th>Bluetooth latency (ms)</th>
+          <th>SDN latecny (ms)</th>
+          <th>WebSocket latecny (ms)</th>
+          <th>Web latecny (ms)</th>
+          <th>Total (ms)</th>
         </tr>
         </thead>
         <tbody>
           { sensorsDataList.map((el, index) => {
+            const { 
+              sensorReadLatancy,
+              bluetoothLatency,
+              sdnLatency,
+              brokerLatency,
+              webLatency,
+              total
+            } = el.latency;
             return (
               <tr key={ index }>
                 <td>{ index + 1}</td>
                 <td>{ el.data.data.temperature }</td>
                 <td>{ el.data.data.humidity }</td>
-                <td>{ el.latency.broker }</td>
-                <td>{ el.latency.message }</td>
-                <td>{ el.latency.sensor }</td>
+                <td>{ sensorReadLatancy }</td>
+                <td>{ bluetoothLatency  }</td>
+                <td>{ sdnLatency }</td>
+                <td>{ brokerLatency }</td>
+                <td>{ webLatency }</td>
+                <td>{ total }</td>
               </tr>
             );
           }) }
@@ -48,5 +61,6 @@ const DashboardPageView = ({ sensorStatus, sensorsDataList, getDHTSenorData }) =
     </div>
   );
 }
+
 
 export { DashboardPageView };

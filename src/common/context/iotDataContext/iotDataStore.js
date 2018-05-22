@@ -19,9 +19,12 @@ const iotDataStore = {
 const handleNewSensorData = (actionData) => {
   return Object.assign({}, actionData, {
     latency: {
-      broker: getTimeDiff(actionData.brokerDate),
-      message: getTimeDiff(actionData.messageDate),
-      sensor: getTimeDiff(actionData.data.date)
+      total: actionData.webClientLatency, 
+      webLatency: actionData.webClientLatency - actionData.webServerLatency, // From web client to web serer
+      brokerLatency: actionData.webServerLatency - actionData.messageLatency, // From web server to broker
+      sdnLatency: actionData.messageLatency - actionData.data.bluetoothLatency,
+      bluetoothLatency: actionData.data.bluetoothLatency - actionData.data.data.sensorReadLatancy,
+      sensorReadLatancy: actionData.data.data.sensorReadLatancy
     }
   });
 };
