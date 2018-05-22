@@ -3,8 +3,10 @@ import { BasicConsumer, iotDataStoreSelector, getDHTSensorDataAction } from 'com
 import { DashboardPageView } from './DashboardPageView';
 
 const mapStoreToProps = (store) => {
+  const iotData = iotDataStoreSelector(store);
   return {
-    dhtSensor: iotDataStoreSelector(store).dhtSensor
+    sensorStatus: iotData.sensorStatus,
+    sensorsDataList: iotData.sensorsDataList
   }
 };
 
@@ -24,7 +26,6 @@ class DashboardPage extends Component {
         {
           (context) => {
             const props = {...mapStoreToProps(context.store), ...mapDispatchToProps(context.dispatch)};
-            console.log(props);
             return (
               <DashboardPageView  {...props} />
             );

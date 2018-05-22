@@ -45,7 +45,8 @@ module.exports = {
   },
   resolve: {
     alias: {
-      common: paths.WEB_ALIAS_COMMON_DIR
+      common: paths.WEB_ALIAS_COMMON_DIR,
+      routes: paths.WEB_ALIAS_ROUTES_DIR
     },
     extensions: ['.js', '.jsx', '.json']
   },

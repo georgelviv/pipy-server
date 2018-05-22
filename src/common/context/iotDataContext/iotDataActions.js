@@ -10,15 +10,11 @@ const getDHTSensorDataAction = (dispatch) => {
   });
 
   getIOTData().then(data => {
-    console.log(data)
-  });
-
-  setTimeout(() => {
     dispatch({
       name: GET_DHT_SENSOR_DATA_RESPONSE_ACTION,
-      data: '20% temperature'
+      data
     })
-  }, 2000);
+  });
 };
 
 export { 

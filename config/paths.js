@@ -4,6 +4,7 @@ const WEB_DIR = path.join(__dirname, "../src");
 const WEB_SRC_DIR = WEB_DIR;
 const WEB_ASSETS_DIR = path.join(WEB_DIR, "public/assets");
 const WEB_ALIAS_COMMON_DIR = path.join(WEB_SRC_DIR, "common");
+const WEB_ALIAS_ROUTES_DIR = path.join(WEB_SRC_DIR, "routes");
 const DESTANATION_DIR = path.join(__dirname, '../build');
 const PUBLIC_SRC_DIR = path.join(WEB_SRC_DIR, 'public')
 const PUBLIC_ASSETS_DIR = path.join(PUBLIC_SRC_DIR, 'assets');
@@ -17,5 +18,6 @@ module.exports = {
   PUBLIC_ASSETS_DIR,
   DESTANATION_DIR,
   WEB_ALIAS_COMMON_DIR,
+  WEB_ALIAS_ROUTES_DIR,
   ROOT
 };

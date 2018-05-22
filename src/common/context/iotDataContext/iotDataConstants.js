@@ -1,0 +1,9 @@
+const IOT_DATA_IDLE_STATUS = 'idle';
+const IOT_DATA_LOADING_STATUS = 'loading';
+const IOT_DATA_FETCHED_STATUS = 'fecthed';
+
+export { 
+  IOT_DATA_IDLE_STATUS, 
+  IOT_DATA_LOADING_STATUS, 
+  IOT_DATA_FETCHED_STATUS 
+};

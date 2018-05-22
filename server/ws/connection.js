@@ -1,6 +1,8 @@
 class WSSConnection {
   constructor(connection) {
     this.connection = connection;
+
+    this.onMsgHandler = () => {};
   
     this.connection.on('error', err => {
       console.log(`connection error: ${ err }`);
@@ -9,12 +11,14 @@ class WSSConnection {
     this.connection.on('close', () => {
       console.log('connection closed');
     });
+
+    this.connection.on('message', (message) => {
+      this.onMsgHandler(JSON.parse(message.utf8Data));
+    });
   }
 
   onMsg(cb) {
-    this.connection.on('message', (message) => {
-      cb(JSON.parse(message.utf8Data))
-    });
+    this.onMsgHandler = cb;
   }
 
   sendMsg(msg) {

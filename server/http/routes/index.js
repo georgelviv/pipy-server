@@ -1,7 +1,16 @@
-const setupRoutes = (app) => {
+const setupRoutes = (app, { sendToWs }) => {
+
   app.get('/iot', (req, res) => {
-    res.send({ d: 'aaa' });
+
+    sendToWs('get_dht_sensor_data')
+      .then(data => {
+        res.send(data);
+      })
+      .catch(error => {
+        res.send(error);
+      });
   });
+
 };
 
 module.exports = setupRoutes;

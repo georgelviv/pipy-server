@@ -23,31 +23,40 @@ class Server {
   }
 
   initHttpServer() {
-    this.httpServer = new HttpServer(this.settings.http);
+    const httpSettings = Object.assign({}, this.settings.http, { 
+      sendToWs: this.onSendToWs.bind(this)
+    });
+    this.httpServer = new HttpServer(httpSettings);
   }
 
   setSettings(settings) {
     this.settings = Object.assign({}, Server.defaultSettings, settings);
   }
 
-  onWsConnection(connection) {
-    connection.onMsg(msg => {
-      console.log(msg);
+  onSendToWs(msg) {
+    return new Promise((resolve, reject) => {
+      this.wsConnection.sendMsg({
+        to: 'batman',
+        from: 'server',
+        type: 'request',
+        data: msg
+      });
+
+      this.wsConnection.onMsg(msg => {
+        resolve(msg);
+      });
     });
+  }
+
+
+  onWsConnection(connection) {
+    this.wsConnection = connection;
+
 
     connection.sendMsg({
       type: 'meta',
       name: 'server'
     });
-
-    setTimeout(() => {
-      connection.sendMsg({
-        to: 'batman',
-        from: 'server',
-        type: 'request',
-        data: 'get_dht_sensor_data'
-      });
-    }, 2000);
   }
 
  

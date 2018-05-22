@@ -5,12 +5,16 @@ import {
   Route, 
   Redirect,
 } from 'react-router-dom';
+
 import { 
   Layout, 
-  DashboardPage, 
-  NotFoundPage,
   BasicProvider
 } from 'common';
+
+import {
+  DashboardPage, 
+  NotFoundPage,
+} from 'routes';
 
 import './App.css';
 

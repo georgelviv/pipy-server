@@ -15,7 +15,7 @@ class BasicProvider extends Component {
       store: store,
       dispatch: (event) => {
         this.setState((prevState) => {
-          prevState.store = reducer(prevState, event);
+          prevState.store = reducer(prevState.store, event);
           return prevState;
         });
       }

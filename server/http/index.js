@@ -9,7 +9,8 @@ class HttpServer {
     return { 
       port: 3000,
       staticDirname: path.resolve(__dirname, '..', '..', 'build'),
-      indexFile: path.resolve('index.html')
+      indexFile: path.resolve('index.html'),
+      sendToWs: () => {}
     }
   }
 
@@ -29,7 +30,7 @@ class HttpServer {
   setupAuth() {
     this.auth = new Auth(this.settings.auth);
 
-    const passport = this.auth.getPassport()
+    const passport = this.auth.getPassport();
 
     this.app.use(passport.initialize());
     this.app.use(passport.session());
@@ -49,7 +50,7 @@ class HttpServer {
       res.sendFile(path.resolve(this.settings.staticDirname, this.settings.indexFile));
     });
 
-    setupRoutes(app);
+    setupRoutes(app, { sendToWs: this.settings.sendToWs });
 
     app.get('*', (req, res) => {
       res.redirect('/');
