@@ -24,11 +24,11 @@ const DashboardPageView = ({ sensorStatus, sensorsDataList, getDHTSenorData }) =
           <th>#</th>
           <th>Temperature</th>
           <th>Humidity</th>
-          <th>Sensor read latecny (ms)</th>
+          <th>Sensor read latency (ms)</th>
           <th>Bluetooth latency (ms)</th>
-          <th>SDN latecny (ms)</th>
-          <th>WebSocket latecny (ms)</th>
-          <th>Web latecny (ms)</th>
+          <th>SDN latency (ms)</th>
+          <th>WebSocket latency (ms)</th>
+          <th>Web latency (ms)</th>
           <th>Total (ms)</th>
         </tr>
         </thead>
