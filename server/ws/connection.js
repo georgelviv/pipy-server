@@ -3,13 +3,16 @@ class WSSConnection {
     this.connection = connection;
 
     this.onMsgHandler = () => {};
+    this.onConnectionCloseCb = () => {};
   
     this.connection.on('error', err => {
       console.log(`connection error: ${ err }`);
+      this.onConnectionCloseCb();
     });
 
     this.connection.on('close', () => {
       console.log('connection closed');
+      this.onConnectionCloseCb();
     });
 
     this.connection.on('message', (message) => {
@@ -19,6 +22,10 @@ class WSSConnection {
 
   onMsg(cb) {
     this.onMsgHandler = cb;
+  }
+
+  onConnectionClose(cb) {
+    this.onConnectionCloseCb = cb;
   }
 
   sendMsg(msg) {

@@ -15,6 +15,7 @@ const server = new Server({
   },
   ws: {
     port: globals.WS_SERVER_PORT,
-    serverLink: globals.WS_SERVER_URL
+    serverLink: globals.WS_SERVER_URL,
+    reconnectTimeout: globals.WS_RECONNECT_TIMEOUT
   }
 });
