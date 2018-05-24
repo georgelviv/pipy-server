@@ -6,7 +6,8 @@ const mapStoreToProps = (store) => {
   const iotData = iotDataStoreSelector(store);
   return {
     sensorStatus: iotData.sensorStatus,
-    sensorsDataList: iotData.sensorsDataList
+    sensorsDataList: iotData.sensorsDataList,
+    isFetching: iotData.isFetching
   }
 };
 

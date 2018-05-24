@@ -1,7 +1,8 @@
 const fetchData = (url, config) => {
   return fetch(url)
     .then(response => {
-      return response.json();
+      const data = response.json();
+      return data;
     })
     .catch(err => {
       console.error(`Error with ${ url }`, err)

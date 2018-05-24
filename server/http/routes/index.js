@@ -8,10 +8,10 @@ const setupRoutes = (app, { sendToWs }) => {
     sendToWs('get_dht_sensor_data')
       .then(data => {
         data.webServerLatency = getTimeDiff(beforeRequestTime);
-        res.send(data);
+        res.send({ type: 'json', data });
       })
       .catch(error => {
-        res.send(error);
+        res.send({ type: 'error', error });
       });
   });
 

@@ -189,6 +189,7 @@
     "circular-json": "^0.3.3",
     "clap": "^1.2.3",
     "class-utils": "^0.3.6",
+    "classnames": "^2.2.5",
     "clean-css": "^4.1.11",
     "clean-webpack-plugin": "^0.1.19",
     "cli-boxes": "^1.0.0",

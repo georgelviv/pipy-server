@@ -1,19 +1,22 @@
 import { 
   GET_DHT_SENSOR_DATA_REQUEST_ACTION,
-  GET_DHT_SENSOR_DATA_RESPONSE_ACTION
+  GET_DHT_SENSOR_DATA_RESPONSE_ACTION,
+  GET_DHT_SENSOR_DATA_ERROR_ACTION
 } from './iotDataActions';
 
 import {
   IOT_DATA_IDLE_STATUS, 
   IOT_DATA_LOADING_STATUS, 
-  IOT_DATA_FETCHED_STATUS 
+  IOT_DATA_FETCHED_STATUS,
+  IOT_DATA_FAILED_STATUS
 } from './iotDataConstants';
 
 import { getTimeDiff } from 'common';
 
 const iotDataStore = {
   sensorsDataList: [],
-  sensorStatus: IOT_DATA_IDLE_STATUS
+  sensorStatus: IOT_DATA_IDLE_STATUS,
+  isFetching: false
 };
 
 const handleNewSensorData = (actionData) => {
@@ -33,12 +36,19 @@ const iotDataReducer = (prevState = iotDataStore, action) => {
   switch (action.name) {
     case GET_DHT_SENSOR_DATA_REQUEST_ACTION:
       return Object.assign({}, prevState, {
-        sensorStatus: IOT_DATA_LOADING_STATUS
+        sensorStatus: IOT_DATA_LOADING_STATUS,
+        isFetching: true
       });
     case GET_DHT_SENSOR_DATA_RESPONSE_ACTION:
       return Object.assign({}, prevState, {
         sensorsDataList: [...prevState.sensorsDataList, handleNewSensorData(action.data)],
-        sensorStatus: IOT_DATA_IDLE_STATUS
+        sensorStatus: IOT_DATA_IDLE_STATUS,
+        isFetching: false
+      });
+    case GET_DHT_SENSOR_DATA_ERROR_ACTION:
+      return Object.assign({}, prevState, {
+        sensorStatus: IOT_DATA_FAILED_STATUS,
+        isFetching: false
       });
     default:
       return prevState;

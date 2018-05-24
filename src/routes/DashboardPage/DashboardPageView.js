@@ -2,62 +2,51 @@ import React from 'react';
 import {
   IOT_DATA_IDLE_STATUS, 
   IOT_DATA_LOADING_STATUS, 
-  IOT_DATA_FETCHED_STATUS 
+  IOT_DATA_FETCHED_STATUS,
+  IOT_DATA_FAILED_STATUS,
+  SimpleTable,
+  SimpleAlert
 } from 'common';
 import './DashboardPageView.less';
+import { normalize } from 'path';
 
 
+const normalizeSensorListData = (data) => {
+  if (!data) return [];
+  return data.map((row, index) => {
+    return {
+      '#': index,
+      'Temperature':  el.data.data.temperature,
+      'Humidity': el.data.data.humidity,
+      'Sensor read latency (ms)': el.latency.sensorReadLatancy,
+      'Bluetooth latency (ms)': el.latency.bluetoothLatency,
+      'SDN latency (ms)': el.latency.sdnLatency,
+      'WebSocket latency (ms)': el.latency.brokerLatency,
+      'Web latency (ms)': el.latency.webLatency,
+      'Total (ms)': el.latency.total
+    }
+  });
+};
 
-const DashboardPageView = ({ sensorStatus, sensorsDataList, getDHTSenorData }) => {
-  const getDataBtn = sensorStatus === IOT_DATA_IDLE_STATUS 
+
+const DashboardPageView = ({ isFetching, sensorStatus, sensorsDataList, getDHTSenorData }) => {
+  const getDataBtn = !isFetching 
     ? (<button className="btn btn-primary" onClick={ getDHTSenorData } >get data</button>) 
     : (<button className="btn btn-primary" onClick={ getDHTSenorData } disabled >get data</button>);
 
+  const isAlertVisible = IOT_DATA_FAILED_STATUS === sensorStatus;
+
   return (
     <div className="dashboard-page">
+      <div>
+        <SimpleAlert isVisible={ isAlertVisible } message={ 'Something went wrong' } />
+      </div>
       <div className="dashboard-page__navigation">
         { getDataBtn }
       </div>
-      <table className="table table-striped">
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Temperature</th>
-          <th>Humidity</th>
-          <th>Sensor read latency (ms)</th>
-          <th>Bluetooth latency (ms)</th>
-          <th>SDN latency (ms)</th>
-          <th>WebSocket latency (ms)</th>
-          <th>Web latency (ms)</th>
-          <th>Total (ms)</th>
-        </tr>
-        </thead>
-        <tbody>
-          { sensorsDataList.map((el, index) => {
-            const { 
-              sensorReadLatancy,
-              bluetoothLatency,
-              sdnLatency,
-              brokerLatency,
-              webLatency,
-              total
-            } = el.latency;
-            return (
-              <tr key={ index }>
-                <td>{ index + 1}</td>
-                <td>{ el.data.data.temperature }</td>
-                <td>{ el.data.data.humidity }</td>
-                <td>{ sensorReadLatancy }</td>
-                <td>{ bluetoothLatency  }</td>
-                <td>{ sdnLatency }</td>
-                <td>{ brokerLatency }</td>
-                <td>{ webLatency }</td>
-                <td>{ total }</td>
-              </tr>
-            );
-          }) }
-        </tbody> 
-      </table>
+      <div>
+        <SimpleTable data={ normalizeSensorListData(sensorsDataList) } />
+      </div>
     </div>
   );
 }

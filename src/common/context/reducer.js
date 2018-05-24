@@ -10,6 +10,7 @@ const combineReducers = (reducersObj) => {
       const key = reducerKeys[i];
       nextState[key] = reducersObj[key](state[key], action);
     }
+    if (typeof windows !== 'undefined') windows.store = nextState;
     return nextState;
   }
 };
