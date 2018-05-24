@@ -22,10 +22,10 @@ const getDHTSensorDataAction = (dispatch) => {
 
   getIOTData().then(data => {
     if (data.type === 'json') {
-      data.webClientLatency = getTimeDiff(beforeRequestTime);
+      data.data.webClientLatency = getTimeDiff(beforeRequestTime);
       dispatch({
         name: GET_DHT_SENSOR_DATA_RESPONSE_ACTION,
-        data
+        data: data.data
       });
     } else {
       errorHandler(dispatch, data.error);

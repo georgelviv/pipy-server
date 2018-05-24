@@ -1,10 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const SimpleAlert = ({ isVisible, message }) => {
+const SimpleAlert = ({ isVisible, message, type }) => {
   const alerClassName = classNames('alert', 
     { 'd-none': !isVisible }, 
-    { 'alert-danger': true }
+    { 
+      'alert-danger': type === 'danger',
+      'alert-primary': type === 'info'
+    }
   );
 
   return (

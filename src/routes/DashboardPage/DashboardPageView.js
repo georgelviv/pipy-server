@@ -16,14 +16,14 @@ const normalizeSensorListData = (data) => {
   return data.map((row, index) => {
     return {
       '#': index,
-      'Temperature':  el.data.data.temperature,
-      'Humidity': el.data.data.humidity,
-      'Sensor read latency (ms)': el.latency.sensorReadLatancy,
-      'Bluetooth latency (ms)': el.latency.bluetoothLatency,
-      'SDN latency (ms)': el.latency.sdnLatency,
-      'WebSocket latency (ms)': el.latency.brokerLatency,
-      'Web latency (ms)': el.latency.webLatency,
-      'Total (ms)': el.latency.total
+      'Temperature':  row.data.data.temperature,
+      'Humidity': row.data.data.humidity,
+      'Sensor read latency (ms)': row.latency.sensorReadLatancy,
+      'Bluetooth latency (ms)': row.latency.bluetoothLatency,
+      'SDN latency (ms)': row.latency.sdnLatency,
+      'WebSocket latency (ms)': row.latency.brokerLatency,
+      'Web latency (ms)': row.latency.webLatency,
+      'Total (ms)': row.latency.total
     }
   });
 };
@@ -34,12 +34,18 @@ const DashboardPageView = ({ isFetching, sensorStatus, sensorsDataList, getDHTSe
     ? (<button className="btn btn-primary" onClick={ getDHTSenorData } >get data</button>) 
     : (<button className="btn btn-primary" onClick={ getDHTSenorData } disabled >get data</button>);
 
-  const isAlertVisible = IOT_DATA_FAILED_STATUS === sensorStatus;
+  const isAlertVisible = IOT_DATA_FAILED_STATUS === sensorStatus || isFetching;
+  const alertMessage = IOT_DATA_FAILED_STATUS === sensorStatus 
+    ? 'Something went wrong'
+    : 'Loading data';
+  const alertType = IOT_DATA_FAILED_STATUS === sensorStatus
+    ? 'danger'
+    : 'info';
 
   return (
     <div className="dashboard-page">
       <div>
-        <SimpleAlert isVisible={ isAlertVisible } message={ 'Something went wrong' } />
+        <SimpleAlert type={ alertType } isVisible={ isAlertVisible } message={ alertMessage } />
       </div>
       <div className="dashboard-page__navigation">
         { getDataBtn }
