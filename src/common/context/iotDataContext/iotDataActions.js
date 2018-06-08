@@ -32,7 +32,7 @@ const getDHTSensorDataAction = (dispatch) => {
     }
   })
   .catch(error => {
-    errorHandler(dispatch, data.error);
+    errorHandler(dispatch, error);
   });
 };
 

@@ -1,6 +1,6 @@
 const Server = require('./server');
 const globals = require('./config/globals');
-const fs = require('fs');
+const argv = require('minimist')(process.argv.slice(2));
 
 const server = new Server({
   http: {
@@ -15,7 +15,7 @@ const server = new Server({
   },
   ws: {
     port: globals.WS_SERVER_PORT,
-    serverLink: globals.WS_SERVER_URL,
+    serverLink: argv.wsip || globals.WS_SERVER_URL,
     reconnectTimeout: globals.WS_RECONNECT_TIMEOUT
   }
 });

@@ -5,6 +5,7 @@ const setupRoutes = (app, { sendToWs }) => {
   app.get('/iot', (req, res) => {
 
     const beforeRequestTime = new Date();
+    console.log('GET /iot');
     sendToWs('get_dht_sensor_data')
       .then(data => {
         data.webServerLatency = getTimeDiff(beforeRequestTime);

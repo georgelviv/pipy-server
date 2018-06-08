@@ -35,6 +35,7 @@ class Server {
 
   onSendToWs(msg) {
     return new Promise((resolve, reject) => {
+      console.log('here')
       this.wsConnection.sendMsg({
         to: 'batman',
         from: 'server',
@@ -43,6 +44,7 @@ class Server {
       });
 
       this.wsConnection.onMsg(msg => {
+        console.log(msg);
         resolve(msg);
       });
     });

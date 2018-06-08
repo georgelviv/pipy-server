@@ -22,6 +22,7 @@ class WSClient {
   }
 
   connectToWS(client) {
+    this.log(`connecting to ${ this.settings.serverLink }:${ this.settings.port }`);
     client.connect(`ws://${ this.settings.serverLink }:${ this.settings.port }/`, 'echo-protocol');
   }
 
